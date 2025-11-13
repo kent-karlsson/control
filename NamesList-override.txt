@@ -1,0 +1,217 @@
+@		C0 controls
+@+		See also ISO/IEC 6429:1992 (ECMA-48, 5th ed.).
+@+		Several C0 control characters have been generalised to user defined information separators and user defined device controls.
+@+		The device controls (remaining Cc) would be generated from a keyboard via terminal emulators only
+0000	<reserved>
+	* never used as character, but used as terminator, filler, and value (not character) to signify "not set"
+	* was NULL, replaced by SYNCHRONOUS IDLE as filler
+	* should not occur inside a text; if it does anyway, replace by SUBSTITUTE
+0001	START OF HEADING
+	* part of a telegram-like protocol, that is since long is out of use
+	* though line breaking, these three controls are NOT considered NLFs (newline function)
+0002	START OF TEXT 
+	* part of a telegram-like protocol, that is since long is out of use
+	* can also be used within 'plain text math' expressions
+0003	END OF TEXT 
+	* part of a telegram-like protocol, that is since long is out of use
+	* can also be used within 'plain text math' expressions
+0004	END OF TRANSMISSION
+	* device control commonly used for "flush input line buffer" in "cooked mode" 'character special' (tty) devices
+0005	DEVICE CONTROL SIX
+	* generalised from ENQUIRY (defunct), (EBCDIC and) ASCII semantics
+0006	DEVICE CONTROL SEVEN
+	* generalised from ACKNOWLEDGE (defunct), (EBCDIC and) ASCII semantics
+0007	ALERT BELL
+	= BELL
+	* name changed from "BELL" in order to avoid name clash with (bell - 1F514)
+0008	CANCEL CHARACTER
+	= BACKSPACE
+	* U+0008 (mapped to any encoding that has this character) has been used for CANCEL CHARACTER for decades
+	* true BACKSPACE, which does not erase anything, is now kept at U+0094
+0009	CHARACTER TABULATION
+	* was called horizontal tabulation (HT), but actually moves in the character progression direction
+000A	LINE FEED 
+	* (LF)
+	* should be handled as an NLF regardless of system
+	* sometimes called new line (NL) or newline
+	* in output to terminals (only): may have different behaviour depending on tty mode
+	x (next line - 0085)
+000B	LINE TABULATION
+	* was called  vertical tabulation (VT), but actually moves in the line progression direction
+	* not an NLF despite the line break
+	* should be preceeded by CR
+000C	FORM FEED
+	* (FF)
+	* like LINE TABULATION, but moves to the next page if there is pagination
+	* should be preceeded by CR
+000D	CARRIAGE RETURN
+	= (CR)
+	* used as filler (to be inserted or removed as appropriate) in some encodings (in modern use)
+	* when used as filler (mainly SMS/CBS, also when message is encoded in Unicode), it should not occur inside a text (if it does anyway, map to LF)
+	* if not used as filler, should be combined with LF, VT or FF
+	* is an NLF (Zp/B/BK) if not used as filler, nor if followed by LF, VT or FF (in which case the CR is BN/CM), but the pair CRLF is a (single) NLF
+	* ((it is a far too common bug to (effectively) convert CRLF to LFLF))
+000E	<reserved>
+	* was LOCKING-SHIFT ONE, a.k.a. SHIFT OUT (older "multi-byte" charsets may still use this)
+	* permanently reserved, no kind of code page switching is permitted in Unicode
+000F	<reserved>
+	* was LOCKING-SHIFT ZERO, a.k.a. SHIFT IN (older "multi-byte" charsets may still use this)
+	* permanently reserved, no kind of code page switching is permitted in Unicode
+0010	DEVICE CONTROL ZERO
+	* user defined device control
+	* generalised from DATA LINK ESCAPE (DLE); the standards for DLE have been withdrawn for several decades
+0011	DEVICE CONTROL ONE
+	* is commonly used for XON/start
+0012	DEVICE CONTROL TWO
+0013	DEVICE CONTROL THREE
+	* is commonly used for XOFF/stop
+0014	DEVICE CONTROL FOUR
+0015	DEVICE CONTROL FIVE
+	* generalised (to user defined device control) from NEGATIVE ACKNOWLEDGE, (EBCDIC and) ASCII semantics
+	* each "DEVICE CONTOL n" is user defined
+0016	INFORMATION SEPARATOR ZERO
+	* user defined information separator
+	* generalized from SYNCHRONOUS IDLE, (EBCDIC and) ASCII semantics, a time-filler information separator
+0017	DEVICE CONTROL EIGHT
+	* generalised (to user defined device control) from END OF TRANSMISSION BLOCK
+	* sometimes used for CANCEL WORD (for some notion of 'word') in tty's
+0018	CANCEL LINE
+	= CANCEL
+	* extent (char, word, line) was 'user defined', but char extent is already covered, word extent is loosely defined, but line extent is commonly supported for tty (settable via stty)
+0019	DEVICE CONTROL NINE
+	* generalised (to user defined device control) from END OF MEDIUM
+001A	SUBSTITUTE
+	* ideally decompose to (replacement character - FFFD)
+	* mappings to older charsets, should map replacement character to SUBSTITUTE
+	* this is an So, and should have a glyph (could be same or similar to that of replacement character, or indeed the ALT. SYMBOL FOR SUB)
+	* ((make this and REPL.CHR. bidi B?))
+	: FFFD
+001B	ESCAPE
+	* used for C1 character references (mainly when followed by an uppercase ASCII letter)
+	* some uses for terminal (emulator) control functions (when followed by a lowercase ASCII letter)
+	* never use for code page switching, which is not permitted in Unicode
+	* most keyboards have an escape key, this may send an ESCAPE, though only via terminal emulators; an incoming(!) ESCAPE, from a keyboard/tty 'raw' mode, is often interpreted in ways not conforming to ISO/IEC 6429:1992 (ECMA-48, 5th ed.)
+001C	INFORMATION SEPARATOR FOUR
+	* generalised (to user defined) from  file separator (FS); (EBCDIC and) ASCII semantics
+	* IS4 has user defined syntax/semantics, and is not necessarily part of a syntactic hierarchy
+001D	INFORMATION SEPARATOR THREE
+	* generalised (to user defined) from group separator (GS); (EBCDIC and) ASCII semantics
+	* IS3 has user defined syntax/semantics, and is not necessarily part of a syntactic hierarchy
+001E	INFORMATION SEPARATOR TWO
+	* generalised (to user defined) from record separator (RS); (EBCDIC and) ASCII semantics
+	* IS2 has user defined syntax/semantics, and is not necessarily part of a syntactic hierarchy
+001F	INFORMATION SEPARATOR ONE
+	* generalised (to user defined) from unit separator (US); (EBCDIC and) ASCII semantics
+	* IS1 has user defined syntax/semantics, and is not necessarily part of a syntactic hierarchy
+	* these are the original "CSV" data format (using the ASCII semantics), but can be used also for other data formats
+	* several other data formats ('user defined') can be INFORMATION SEPARATOR-based
+	* ((quite worthy of a revival; .icsv, ...))
+
+@		Control character
+@+		See also ISO/IEC 6429:1992 (ECMA-48, 5th ed.).
+007F	DEVICE CONTROL TEN
+	* generalised from DELETE, which was eliminated from ECMA-48 5th edition (ISO/IEC 6429:1992)
+	* there is a 'delete' key on most keyboards, but U+007F would be generated only via terminal emulators
+
+@		C1 controls
+@+		See also ISO/IEC 6429:1992 (ECMA-48, 5th ed.).
+@+		Several C1 control characters have been generalised to user defined information separators and additions have been made for 'plain text math' expressions.
+@+		With the sole exception of NEXT LINE no EBCDIC character maps to a C1 character.
+@+		These characters are in general not generated directly via a keyboard.
+@+		These do have ESC<uppercase ASCII letter, or certain symbols> character references, see ISO/IEC 6429:1992 (ECMA-48, 5th ed.), especially useful for charsets that do not have C1.
+@+		(those ESC-char refs are not included below; separate proposal has been submitted to UTC)
+0080	START OF MATH EXPRESSION
+	* reserve for enabling a true 'plain text' math expression representation
+0081	END OF MATH EXPRESSION
+	* reserve for enabling a true 'plain text' math expression representation
+0082	LINE BREAK PERMITTED HERE
+	= BREAK PERMITTED HERE (BPH)
+	* name clarification
+	* ideally decompose to (zero width space - 200B)
+	: 200B
+0083	LINE BREAK NOT PERMITTED HERE
+	= NO BREAK HERE (NBH)
+	* name clarification
+	* ideally decompose to (word joiner - 2060)
+	: 2060
+0084	MATH HORIZONTAL DIVISION
+	* 0084 was for a very short while INDEX, a duplicate of LINE FEED, do not use in that capacity
+	* reserve for enabling a true 'plain text' math expression representation, and within that the very common horizontal line layout for division
+	* other common notations for division include plain SOLIDUS, and DIVISION SLASH and BIG SOLIDUS; DIVISION SIGN is mainly used only between numerals
+	* note that this is an Sm, math symbol, acting as a (layout) control within a 'plain text' math expression
+0085	NEXT LINE
+	= (NEL)
+	* ideally decompose into 000D 000A, but must have 0085 composition excluded
+	: 000D 000A
+0086	INFORMATION LEFT BRACKET ONE
+	* generalised (to user defined opening bracket information separator) from START OF SELECTED AREA (block terminal semantics)
+0087	INFORMATION RIGHT BRACKET ONE
+	* generalised (to user defined closing bracket information separator) from END OF SELECTED AREA (block terminal semantics)
+0088	<reserved>
+	* was CHARACTER TABULATION SET
+	* was called HORIZONTAL TABULATION SET
+	* recommend to use another method of setting tab stops, one that does not need output for setting the stop
+	* intended for faster form fillout in "line printers"/typewriter-like terminals, but using HT for ('poor-man's') column lineup is still common
+	* HT is also used for such things as command completion, file name completion and similar, but that does not rely on tab stop settings
+0089	CHARACTER TABULATION WITH JUSTIFICATION
+	= (HTJ)
+	* was called HORIZONTAL TABULATION WITH JUSTIFICATION
+	* HT plus move the content of the preceding 'field' (back to previous HT/HTJ or b.o.l.) to end at the next tab stop
+	* can be used for item list 'index' alignment, as well as (easier) numerical alignment
+008A	<reserved>
+	* was LINE TABULATION SET
+	* was called VERTICAL TABULATION SET
+	* recommend to use another method of setting tab stops, one that does not need output for setting the stop
+	* intended for faster form fillout in "line printers"/typewriter-like terminals, but using VT like that is rare today
+008B	PARTIAL LINE FORWARD
+	* was primarily inteded to format superscripts/subscripts, but recommend using other methods
+008C	PARTIAL LINE BACKWARD
+	* was primarily inteded to format superscripts/subscripts, but recommend using other methods
+008D	<control>
+	= REVERSE LINE FEED
+	* was for a short time called REVERSE INDEX
+008E	<reserved>
+	= SINGLE SHIFT TWO, still used in some encodings, in particular for 7-bit SMS/CBS (though not at 0x8E, but at 0x1B)
+	* permanently reserved, no kind of code page switching is permitted in Unicode
+008F	<reserved>
+	= SINGLE SHIFT THREE
+	* permanently reserved, no kind of code page switching is permitted in Unicode
+0090	DEVICE CONTROL STRING
+	* has been used for 'programming' function keys in terminals; obsolete
+0091	INFORMATION SEPARATOR FIVE
+	= PRIVATE USE ONE
+0092	INFORMATION SEPARATOR SIX
+	= PRIVATE USE TWO
+0093	<undefined>
+	* was SET TRANSMIT STATE, which was intended for (8-bit C1 chars) half duplex terminals, defunct
+	* no reasonable generalisation, but not permanently reserved
+0094	BACKSPACE
+	* was CANCEL CHARACTER, but CANCEL CHARACTER is moved to 0008, since 0008 is actually used as CANCEL CHARACTER
+0095	<undefined>
+	* was MESSAGE WAITING, likely intended for half duplex terminals and manual intervention to change the transmit state (defunct)
+	* no reasonable generalisation, but not permanently reserved
+0096	INFORMATION LEFT BRACKET TWO
+	* generalised (to user defined opening bracket information separator) from  START OF GUARDED AREA (block terminal semantics)
+0097	INFORMATION RIGHT BRACKET TWO
+	* generalised (to user defined closing bracket information separator) from  END OF GUARDED AREA (block terminal semantics)
+0098	START OF STRING
+	* 'generic' control string start; not used to date
+0099	MATH MIRROR SYMBOL
+	* reserve for enabling a true 'plain text' math expression representation
+009A	SINGLE CHARACTER INTRODUCER
+	* can be used to make another INFORMATION SEPARATOR from a (single char) INFORMATION SEPARATOR
+	* can be used in 'plain text math expressions' to generate various math
+009B	CONTROL SEQUENCE INTRODUCER
+	* commonly used to do styling of text output to terminals
+	* can be used for styling text also elswhere, e.g. in text files
+	* note that there is a difference between a 'control sequence' and a 'control string'
+	* the control sequence is terminated by an ASCII letter or an ASCII symbol not permitted inside the control sequence
+009C	STRING TERMINATOR
+	* terminates a control string (started by START OF STRING, OPERATING SYSTEM COMMAND, PRIVACY MESSAGE, APPLICATION PROGRAM COMMAND)
+009D	OPERATING SYSTEM COMMAND
+	* commonly used in terminal emulators for setting window headings and other functions
+009E	PRIVACY MESSAGE
+	* used to set the content of a reserved status line in some older terminals; otherwise obsolete
+009F	APPLICATION PROGRAM COMMAND
+	* could potentially be used to embed "non-plain-text" (like images or vector graphics)
+
