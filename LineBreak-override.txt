@@ -17,7 +17,7 @@
 0083           ; WJ # Cf         LINE BREAK NOT PERMITTED HERE
 0084           ; BK # Sm         MATH HORIZONTAL DIVISION
 0085           ; BK # Zp         NEXT LINE
-0086..0087     ; CB # Cf     [2] INFORMATION LEFT BRACKET ONE..INFORMATION RIGHT BRACKET ONE
+0086..0087     ; CM # Cf     [2] INFORMATION LEFT BRACKET ONE..INFORMATION RIGHT BRACKET ONE
 0088           ; XX # Cn         <reserved-0088>
 0089           ; BA # Cf         CHARACTER TABULATION WITH JUSTIFICATION
 008A           ; XX # Cn         <reserved-008A>
@@ -29,7 +29,7 @@
 0093           ; XX # Cn         <undefined-0093>
 0094           ; CM # Cf         BACKSPACE
 0095           ; XX # Cn         <undefined-0095>
-0096..0097     ; CB # Cf     [2] INFORMATION LEFT BRACKET TWO..INFORMATION RIGHT BRACKET TWO
+0096..0097     ; CM # Cf     [2] INFORMATION LEFT BRACKET TWO..INFORMATION RIGHT BRACKET TWO
 0098..009E     ; CM # Cf     [7] START OF STRING..PRIVACY MESSAGE
 009F           ; CB # Cf         APPLICATION PROGRAM COMMAND
 # "non-characters", but actual use would primarily be as object replacement characters:

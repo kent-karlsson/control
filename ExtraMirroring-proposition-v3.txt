@@ -31,6 +31,10 @@
 003F; 2E2E # QUESTION MARK
 005C; 002F # REVERSE SOLIDUS
 005C 0304; 29F6 # reverse solidus with overbar
+0086; 0087 # INFORMATION LEFT BRACKET ONE (Cf, should really be in bidi-mirroring.txt, when 'show invisibles' display as [ (&photo negative); bidi:ON, bidi-bracket:o)
+0087; 0086 # INFORMATION RIGHT BRACKET ONE (Cf, should really be in bidi-mirroring.txt, when 'show invisibles' display as ] (&photo negative); bidi:ON, bidi-bracket:c)
+0096; 0097 # INFORMATION LEFT BRACKET TWO (Cf, should really be in bidi-mirroring.txt, when 'show invisibles' display as { (&photo negative); bidi:ON, bidi-bracket:wo)
+0097; 0096 # INFORMATION RIGHT BRACKET TWO (Cf, should really be in bidi-mirroring.txt, when 'show invisibles' display as } (&photo negative); bidi:ON, bidi-bracket:wc)
 00AC; 2310 # NOT SIGN
 037B; 03F2 # GREEK SMALL REVERSED LUNATE SIGMA SYMBOL
 037C; 037D # GREEK SMALL DOTTED LUNATE SIGMA SYMBOL
